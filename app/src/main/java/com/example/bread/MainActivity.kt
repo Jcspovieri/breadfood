@@ -21,36 +21,27 @@ private var Senha: String?= null
 
 
 
-private var etemail: TextView? = null
-private var etsenha: TextView? = null
-private var button: Button? = null
-private var aqui: TextView? = null
-private var mProgressBar: ProgressDialog? = null
-
+//private var etemail: TextView? = null
+//private var etsenha: TextView? = null
+//private var button: Button? = null
+//private var aqui: TextView? = null
+lateinit var mProgressBar: ProgressDialog
 // banco de dados
-
 lateinit var mAuth: FirebaseAuth
-
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         mAuth =  FirebaseAuth.getInstance()
-
+        mProgressBar = ProgressDialog(this)
         aqui!!.setOnClickListener {
             val Intent: Intent = Intent(this, Cadastro_cliente::class.java)
             startActivity(Intent)
         }
-
-          button.setOnClickListener {
-              loginUser()
-          }
-
-
-
+        button.setOnClickListener {
+            loginUser()
+        }
     }
-
     private fun loginUser() {
         email = etemail?.text.toString()
         Senha = etsenha?.text.toString()
