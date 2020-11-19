@@ -12,6 +12,7 @@ import android.widget.Toast
 import com.example.bread.ui.feddActivity2
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_post.*
 
 private val TAG = "TelaLogin"
 private  var email: String?= null
@@ -41,6 +42,8 @@ class MainActivity : AppCompatActivity() {
         button.setOnClickListener {
             loginUser()
         }
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
     private fun loginUser() {
         email = etemail?.text.toString()

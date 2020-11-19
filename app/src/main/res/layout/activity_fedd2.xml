@@ -7,13 +7,5 @@
     tools:context=".ui.feddActivity2">
 
 
- <ImageView
-     android:id="@+id/ImagemView"
-     android:layout_width="match_parent"
-     android:layout_height="match_parent"/>
-
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
