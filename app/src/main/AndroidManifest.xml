@@ -3,7 +3,7 @@
     package="com.example.bread">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -12,11 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.FeedActivity"></activity>
+        <activity android:name=".SplashActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".PostActivity" />
         <activity android:name=".Cadastro_cliente" />
         <activity android:name=".ui.feddActivity2" />
-        <activity android:name=".SplashActivity">
+        <activity android:name=".PerfilActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

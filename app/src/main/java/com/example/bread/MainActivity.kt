@@ -8,6 +8,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
 import com.example.bread.ui.feddActivity2
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
@@ -19,6 +20,9 @@ lateinit var mProgressBar: ProgressDialog
 // banco de dados
 lateinit var mAuth: FirebaseAuth
 class MainActivity : AppCompatActivity() {
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

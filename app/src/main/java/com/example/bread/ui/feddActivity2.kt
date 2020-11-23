@@ -14,8 +14,6 @@ import java.io.File
 private var mStorageRef: StorageReference? = null
 
 class feddActivity2 : AppCompatActivity() {
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fedd2)
