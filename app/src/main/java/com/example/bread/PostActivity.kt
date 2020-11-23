@@ -10,6 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.*
+import com.example.bread.model.Post
+import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
@@ -25,9 +28,13 @@ class PostActivity : AppCompatActivity() {
     }
 
     lateinit var mStorageRef: StorageReference
+    lateinit var database: FirebaseDatabase
     lateinit var imageUri: Uri
     lateinit var imageUriDownload: Uri
     lateinit var imageViewProduct: ImageView
+    lateinit var  spinner: Spinner
+    lateinit var  textInputLayout: TextInputLayout
+    lateinit var  editTextDescricaoProduto: EditText
     var imageLink = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,8 +44,12 @@ class PostActivity : AppCompatActivity() {
         var spinnerCategoria = findViewById<Spinner>(R.id.spinnerCategoria)
         imageViewProduct = findViewById<ImageView>(R.id.imageViewProduct)
         var buttonUpload = findViewById<Button>(R.id.buttonUpload)
+        spinner = findViewById<Spinner>(R.id.spinnerCategoria)
+        textInputLayout = findViewById<TextInputLayout>(R.id.textInputLayout)
+        editTextDescricaoProduto = findViewById<EditText>(R.id.editTextTextPersonName)
 
         mStorageRef = FirebaseStorage.getInstance().reference
+        database = FirebaseDatabase.getInstance()
 
         spinnerCategoria.adapter = ArrayAdapter(this,
             R.layout.support_simple_spinner_dropdown_item,
@@ -49,22 +60,29 @@ class PostActivity : AppCompatActivity() {
         }
 
         buttonUpload.setOnClickListener {
-            var imageRef = mStorageRef.child("images/${imageUri.lastPathSegment}")
+            uploadImageToStorage()
+        }
 
-            var uploadTask = imageRef.putFile(imageUri)
+    }
 
-            uploadTask.addOnSuccessListener {
-                imageLink = it.storage.downloadUrl.toString()
-                val link = imageRef.downloadUrl.toString()
-                val downloadUrl = it.toString()
-                Toast.makeText(this, "Success: $imageLink", Toast.LENGTH_SHORT).show()
-            }.addOnFailureListener{
-                Toast.makeText(this, "Error: ${it.localizedMessage}", Toast.LENGTH_SHORT).show()
-            }
+    private fun uploadImageToStorage() {
+        val imageRef = mStorageRef.child("images/${imageUri.lastPathSegment}")
+        val uploadTask = imageRef.putFile(imageUri)
 
-            imageRef.downloadUrl.addOnSuccessListener {
-                imageUriDownload = it
-            }
+        uploadTask.addOnSuccessListener {
+            Toast.makeText(this, "Success: $imageLink", Toast.LENGTH_SHORT).show()
+        }.addOnFailureListener {
+            Toast.makeText(this, "Error: ${it.localizedMessage}", Toast.LENGTH_SHORT).show()
+        }
+        imageRef.downloadUrl.addOnSuccessListener {
+            imageUriDownload = it
+            val postRef = database.getReference("posts")
+            val post = Post(textInputLayout.editText?.text.toString(),
+                spinner.selectedItem.toString(),
+                editTextDescricaoProduto.text.toString(),
+                imageUriDownload.toString())
+
+            postRef.push().setValue(post)
         }
     }
 
