@@ -21,34 +21,30 @@ class feddActivity2 : AppCompatActivity() {
     private var mStorageRef: StorageReference? = null
     lateinit var database: FirebaseDatabase
     lateinit var databaseReference: DatabaseReference
-    lateinit var postList: MutableList<Post>
-    val recyclerPostAdapter = RecyclerPostAdapter
-
+    var postList = mutableListOf<Post?>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fedd2)
 
-
         //banco
         mStorageRef = FirebaseStorage.getInstance().getReference();
         database = FirebaseDatabase.getInstance()
-        databaseReference = database.getReference()
+        databaseReference = database.reference
 
-        val query = databaseReference.child("posts")
+        val linearLayoutManager = LinearLayoutManager(this)
+        recyclerViewFeed.layoutManager = linearLayoutManager
+        recyclerViewFeed.setHasFixedSize(true)
 
-        val listener = object : ValueEventListener{
+        val listener = object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-              snapshot.children.forEach {
-                  val imageUrl = it.child("imageUrl").getValue().toString()
-                  val nomeProduto = it.child("nomeProduto").getValue().toString()
-                  val categoria = it.child("categoria").getValue().toString()
-                  val descricao = it.child("descricao").getValue().toString()
-
-
-                  //postList.add()
-              }
-
+                snapshot.children.forEach {
+                    val post = it.getValue(Post::class.java)
+                    postList.add(post)
+                }
+                var adapter = RecyclerPostAdapter(applicationContext, postList)
+                recyclerViewFeed.adapter = adapter
+                adapter.notifyDataSetChanged()
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -57,31 +53,19 @@ class feddActivity2 : AppCompatActivity() {
 
         }
 
-        query.addListenerForSingleValueEvent(listener)
-
-        val linearLayoutManager = LinearLayoutManager(this)
-
-
-        recyclerViewFeed.layoutManager = linearLayoutManager
-        recyclerViewFeed.setHasFixedSize(true)
-
-
-
-        postList = mutableListOf()
-
-
+        val query = databaseReference.child("posts").addValueEventListener(listener)
 
         postbutton.setOnClickListener {
-            val Intent: Intent = Intent(this, PostActivity::class.java)
-            startActivity(Intent)
+            val intent: Intent = Intent(this, PostActivity::class.java)
+            startActivity(intent)
         }
     }
 
 
-    fun clearALL(){
+    fun clearAll(){
         if(postList != null){
             postList.clear()
         }
-        postList =   mutableListOf()
+        postList = mutableListOf()
     }
 }
