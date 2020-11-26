@@ -46,7 +46,7 @@ class feddActivity2 : AppCompatActivity() {
                   val descricao = it.child("descricao").getValue().toString()
 
 
-                  postList.add()
+                  //postList.add()
               }
 
             }
