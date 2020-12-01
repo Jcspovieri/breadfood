@@ -84,6 +84,7 @@ class PostActivity : AppCompatActivity() {
 
             postRef.push().setValue(post)
         }
+        finish()
     }
 
     private fun selectImage() {

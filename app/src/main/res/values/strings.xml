@@ -19,7 +19,6 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string-array name="Categoria">
-        <item>Categoria</item>
         <item>Pães Caseiros</item>
         <item>Biscoitos Artesanais</item>
         <item>Salgados</item>

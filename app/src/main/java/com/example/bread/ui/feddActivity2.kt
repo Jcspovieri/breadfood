@@ -22,7 +22,6 @@ class feddActivity2 : AppCompatActivity() {
     lateinit var database: FirebaseDatabase
     lateinit var databaseReference: DatabaseReference
     var postList = mutableListOf<Post?>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fedd2)
@@ -38,6 +37,7 @@ class feddActivity2 : AppCompatActivity() {
 
         val listener = object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
+                ClearAll()
                 snapshot.children.forEach {
                     val post = it.getValue(Post::class.java)
                     postList.add(post)
@@ -61,10 +61,11 @@ class feddActivity2 : AppCompatActivity() {
         }
     }
 
-
-    fun clearAll(){
+    fun ClearAll(){
         if(postList != null){
             postList.clear()
+            if(recyclerViewFeed != null)
+                recyclerViewFeed?.adapter?.notifyDataSetChanged()
         }
         postList = mutableListOf()
     }

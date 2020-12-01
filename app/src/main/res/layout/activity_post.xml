@@ -6,29 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".PostActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="0dp"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        app:title="Criar publicação"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" >
 
-    </androidx.appcompat.widget.Toolbar>
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary" />
+    </com.google.android.material.appbar.AppBarLayout>
+
 
     <ImageView
         android:id="@+id/imageViewProduct"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:adjustViewBounds="false"
         android:cropToPadding="false"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
         app:srcCompat="@drawable/ic_add" />
 
     <Spinner
@@ -36,11 +40,12 @@
         android:layout_width="0dp"
         android:layout_height="28dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:entries="@array/Categoria"
         android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewProduct"
         tools:visibility="visible" />
@@ -77,9 +82,10 @@
 
     <EditText
         android:id="@+id/editTextTextPersonName"
-        android:layout_width="0dp"
+        android:layout_width="381dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:ems="10"
@@ -88,7 +94,18 @@
         android:inputType="textMultiLine|textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/buttonUpload"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="2dp"
+        android:text="Categoria"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerCategoria"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
