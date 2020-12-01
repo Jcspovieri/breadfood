@@ -91,7 +91,7 @@ class Cadastro_cliente : AppCompatActivity() {
 
                     VerifyEmail();
                     val currentUserdb = mDataBaseReference!!.child(userId)
-                    currentUserdb.child("Nome Completo").setValue(Nomecompleto)
+                    currentUserdb.child("nomeCompleto").setValue(Nomecompleto)
                     updateUserInfoAndUI()
                 } else {
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
