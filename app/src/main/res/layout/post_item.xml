@@ -7,13 +7,13 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewPost"
-        android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="4dp"
-        app:cardCornerRadius="0dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="4dp"
         app:cardElevation="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,9 +26,11 @@
 
             <ImageView
                 android:id="@+id/postImage"
-                android:layout_width="138dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="4dp"
+                app:layout_constraintEnd_toStartOf="@+id/nomeProduto"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/avatars" />
@@ -47,7 +49,7 @@
                 android:textStyle="bold|italic"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/postImage"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewName" />
 
             <TextView
                 android:id="@+id/textViewCategoria"
@@ -60,6 +62,38 @@
                 app:layout_constraintStart_toEndOf="@+id/postImage"
                 app:layout_constraintTop_toBottomOf="@+id/nomeProduto" />
 
+            <Button
+                android:id="@+id/button_comment"
+                android:layout_width="125dp"
+                android:layout_height="46dp"
+                android:layout_marginStart="16dp"
+                android:background="@null"
+                android:drawableStart="@drawable/ic_comment"
+                android:drawablePadding="8dp"
+                android:text="Comentar"
+                android:textAllCaps="false"
+                app:layout_constraintBottom_toBottomOf="@+id/button_share"
+                app:layout_constraintEnd_toStartOf="@+id/button_share"
+                app:layout_constraintHorizontal_bias="0.333"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/button_share" />
+
+            <Button
+                android:id="@+id/button_share"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:background="@null"
+                android:drawableStart="@drawable/ic_share"
+                android:text="Compartilhar"
+                android:textAllCaps="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/button_comment"
+                app:layout_constraintTop_toBottomOf="@+id/textViewDescricao" />
+
             <TextView
                 android:id="@+id/textViewDescricao"
                 android:layout_width="0dp"
@@ -67,13 +101,22 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
                 android:gravity="center_horizontal|left"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/postImage"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/postImage"
                 app:layout_constraintTop_toBottomOf="@+id/textViewCategoria" />
+
+            <TextView
+                android:id="@+id/textViewName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="5dp"
+                android:hint="Nome"
+                app:layout_constraintStart_toEndOf="@+id/postImage"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

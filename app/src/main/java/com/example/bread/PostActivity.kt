@@ -11,8 +11,16 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.*
 import com.example.bread.model.Post
+import com.example.bread.model.User
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
@@ -27,6 +35,7 @@ class PostActivity : AppCompatActivity() {
         private val PERMISSION_CODE = 2
     }
 
+    var user: FirebaseUser? = null
     lateinit var mStorageRef: StorageReference
     lateinit var database: FirebaseDatabase
     lateinit var imageUri: Uri
@@ -36,6 +45,7 @@ class PostActivity : AppCompatActivity() {
     lateinit var  textInputLayout: TextInputLayout
     lateinit var  editTextDescricaoProduto: EditText
     var imageLink = ""
+    var userName: User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,8 +58,22 @@ class PostActivity : AppCompatActivity() {
         textInputLayout = findViewById<TextInputLayout>(R.id.textInputLayout)
         editTextDescricaoProduto = findViewById<EditText>(R.id.editTextTextPersonName)
 
+        user = Firebase.auth.currentUser
         mStorageRef = FirebaseStorage.getInstance().reference
         database = FirebaseDatabase.getInstance()
+
+        val userRef = database.getReference("Users").child(user!!.uid)
+        val userListener = object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                userName = snapshot.getValue(User::class.java)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        }
+        userRef.addListenerForSingleValueEvent(userListener)
 
         spinnerCategoria.adapter = ArrayAdapter(this,
             R.layout.support_simple_spinner_dropdown_item,
@@ -80,7 +104,7 @@ class PostActivity : AppCompatActivity() {
             val post = Post(textInputLayout.editText?.text.toString(),
                 spinner.selectedItem.toString(),
                 editTextDescricaoProduto.text.toString(),
-                imageUriDownload.toString())
+                imageUriDownload.toString(), userName!!.nomeCompleto)
 
             postRef.push().setValue(post)
         }

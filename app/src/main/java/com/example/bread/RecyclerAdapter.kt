@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bread.model.Post
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_item_post.view.*
 import kotlinx.android.synthetic.main.post_item.view.*
 
 class RecyclerPostAdapter(private val context: Context, private val posts: MutableList<Post?>) :
@@ -37,6 +38,7 @@ class RecyclerPostAdapter(private val context: Context, private val posts: Mutab
         holder.titulo.text = post?.nomeProduto
         holder.categoria.text = post?.categoria
         holder.descricao.text = post?.descricao
+        holder.name.text = post?.nome
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -44,6 +46,7 @@ class RecyclerPostAdapter(private val context: Context, private val posts: Mutab
         val titulo: TextView = itemView.nomeProduto
         val categoria: TextView = itemView.textViewCategoria
         val descricao: TextView = itemView.textViewDescricao
+        val name: TextView = itemView.textViewName
     }
 }
 
