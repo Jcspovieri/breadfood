@@ -30,6 +30,7 @@ class Cadastro_cliente : AppCompatActivity() {
     private var mProgress: ProgressDialog? = null
 
 
+
     private var mDataBaseReference: DatabaseReference? = null
     private var mDatabase: FirebaseDatabase? = null
     private var mAuth: FirebaseAuth? = null
