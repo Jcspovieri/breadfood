@@ -37,6 +37,7 @@ class RecyclerPostAdapter(private val context: Context, private val posts: Mutab
         holder.titulo.text = post?.nomeProduto
         holder.categoria.text = post?.categoria
         holder.descricao.text = post?.descricao
+        holder.nome.text = post?.nome
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -44,6 +45,7 @@ class RecyclerPostAdapter(private val context: Context, private val posts: Mutab
         val titulo: TextView = itemView.nomeProduto
         val categoria: TextView = itemView.textViewCategoria
         val descricao: TextView = itemView.textViewDescricao
+        val nome: TextView = itemView.textViewName
     }
 }
 

@@ -94,20 +94,24 @@ class PostActivity : AppCompatActivity() {
         val uploadTask = imageRef.putFile(imageUri)
 
         uploadTask.addOnSuccessListener {
-            Toast.makeText(this, "Success: $imageLink", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, "Success: $imageLink", Toast.LENGTH_SHORT).show()
+            imageRef.downloadUrl.addOnSuccessListener {
+                imageUriDownload = it
+                val postRef = database.getReference("posts")
+                val post = Post(textInputLayout.editText?.text.toString(),
+                    spinner.selectedItem.toString(),
+                    editTextDescricaoProduto.text.toString(),
+                    imageUriDownload.toString(), userName!!.nomeCompleto)
+
+                postRef.push().setValue(post)
+                Toast.makeText(this, "Registro concluído com sucesso!", Toast.LENGTH_LONG).show()
+            }.addOnFailureListener {
+                Toast.makeText(this, "Erro ao concluir registro: ${it.localizedMessage}", Toast.LENGTH_LONG).show()
+            }
         }.addOnFailureListener {
             Toast.makeText(this, "Error: ${it.localizedMessage}", Toast.LENGTH_SHORT).show()
         }
-        imageRef.downloadUrl.addOnSuccessListener {
-            imageUriDownload = it
-            val postRef = database.getReference("posts")
-            val post = Post(textInputLayout.editText?.text.toString(),
-                spinner.selectedItem.toString(),
-                editTextDescricaoProduto.text.toString(),
-                imageUriDownload.toString(), userName!!.nomeCompleto)
 
-            postRef.push().setValue(post)
-        }
     }
 
     private fun selectImage() {
